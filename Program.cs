@@ -12,7 +12,6 @@ namespace QuetePOO2
             int input = 0;
             int lengthOfList = 0;
             int whileCounter = 0;
-            float average = 0;
 
             Console.WriteLine("How many numbers would you like to add in the list? ");
             int.TryParse(Console.ReadLine(), out lengthOfList);
@@ -30,17 +29,18 @@ namespace QuetePOO2
 
         public static double CalculateAverage(List<int> listOfNumbers)
         {
-            double average = 0;
-            average = listOfNumbers.Average();
+            double average = listOfNumbers.Average();
             return average;
         }
 
         public static void DisplayArrayAndAverage(List<int> listOfNumbers)
         {
-            double average = 0;
             string printString = "[ ";
-            average = CalculateAverage(listOfNumbers);
+
+            double  average = CalculateAverage(listOfNumbers);
+
             Console.WriteLine("\nThe Given Array : \n");
+
             for (int i = 0; i < listOfNumbers.Count; i++)
             {
                 if (i == listOfNumbers.Count - 1)
