@@ -8,10 +8,11 @@ namespace QuetePOO2
     {
         static void Main(string[] args)
         {
-            List<int> listOfNumbers = new List<int>();
+            IList<int> listOfNumbers = new List<int>();
             int input = 0;
             int lengthOfList = 0;
             int whileCounter = 0;
+            int n = 0;
 
             Console.WriteLine("How many numbers would you like to add in the list? ");
             int.TryParse(Console.ReadLine(), out lengthOfList);
@@ -24,20 +25,26 @@ namespace QuetePOO2
                 whileCounter++; 
             }
 
-            Program.DisplayArrayAndAverage(listOfNumbers);
+            Console.WriteLine("Please enter the limit number below which you would like to calculate the average : ");
+            int.TryParse(Console.ReadLine(), out n);
+
+            Program.DisplayArrayAndAverage(listOfNumbers, n);
         }
 
-        public static double CalculateAverage(List<int> listOfNumbers)
+        public static void CalculateAverage(IList<int> listOfNumbers, int n, out double average, out IList<int> listLowerThanN)
         {
-            double average = listOfNumbers.Average();
-            return average;
+            listLowerThanN = new List<int>();
+            listLowerThanN = listOfNumbers.Where(x => x <= n).ToList();
+            average = listLowerThanN.Average();
         }
 
-        public static void DisplayArrayAndAverage(List<int> listOfNumbers)
+        public static void DisplayArrayAndAverage(IList<int> listOfNumbers, int n)
         {
             string printString = "[ ";
-
-            double  average = CalculateAverage(listOfNumbers);
+            double average = 0;
+            IList<int> listLowerThanN;
+            
+            CalculateAverage(listOfNumbers, n, out average, out listLowerThanN);
 
             Console.WriteLine("\nThe Given Array : \n");
 
@@ -47,6 +54,18 @@ namespace QuetePOO2
                     printString += "" + listOfNumbers[i] + " ]";
                 else
                     printString += "" + listOfNumbers[i] + ", ";
+            }
+            Console.WriteLine(printString);
+            printString = "[ ";
+
+            Console.WriteLine("\nThe Array considered for calculating average based on the limit : \n");
+
+            for (int i = 0; i < listLowerThanN.Count; i++)
+            {
+                if (i == listLowerThanN.Count - 1)
+                    printString += "" + listLowerThanN[i] + " ]";
+                else
+                    printString += "" + listLowerThanN[i] + ", ";
             }
 
             Console.WriteLine(printString);
